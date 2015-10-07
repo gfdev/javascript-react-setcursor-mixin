@@ -1,1 +1,1 @@
-module.exports = require('./src/setCursorMixin');
+module.exports = require('./dist/setCursorMixin');

@@ -1,0 +1,35 @@
+{
+  "name": "react-setcursor-mixin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "keywords": [],
+  "homepage": "https://github.com/gfdev/javascript-react-setcursor-mixin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gfdev/javascript-react-setcursor-mixin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gfdev/javascript-react-setcursor-mixin/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "rm -rf dist/* && webpack && webpack --no-minimize",
+    "clean": "rm -rf dist/*"
+  },
+  "author": {
+    "name": "Gordon Freeman",
+    "email": "eax@gmx.us",
+    "url": "https://github.com/gfdev"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "html-webpack-plugin": "^1.6.1",
+    "react": "^0.13.3"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}

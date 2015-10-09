@@ -28,10 +28,14 @@ var Index = React.createClass({
     render: function() {
         return (
             <div>
-                <input type='text' defaultValue='123' data-cursor='end' />
+                Focus: <input type='text' defaultValue='1234567890' data-focus /><br />
+                Focus: <input type='text' defaultValue='1234567890' data-focus /><br />
+
+                <input type='text' defaultValue='1234567890' data-cursor='1' />
+
                 <button onClick={this.setCursor}>Set cursor to end of text</button>
-                <br /><br /><br /><br /><br /><br /><br />
-                <textarea>afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg</textarea>
+                <br /><br />
+                <textarea defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg'></textarea>
                 <button onClick={this.setCursor}>Set cursor to end of text</button>
             </div>
         );

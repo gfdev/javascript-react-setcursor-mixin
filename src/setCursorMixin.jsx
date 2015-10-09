@@ -1,19 +1,15 @@
 'use strict';
 
 var setCursorMixin = {
-    componentWillMount: function () {
-        //debugger;
+    componentDidMount: function() {
+        var node = this.getDOMNode();
 
-        //console.log(this.getDOMNode());
+        if (!node) return false;
 
-        console.log('componentWillMount');
-    },
-    componentDidMount: function () {
-        //debugger;
+        var focus = Array.prototype.slice.call(node.querySelectorAll('[data-focus]'));
 
-        console.log(this.getDOMNode());
+        if (focus.length > 0) focus.pop().focus();
 
-        console.log('componentWillMount');
     },
     setCursor: (node, position) => {
         console.log(arguments);

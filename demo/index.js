@@ -76,7 +76,13 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement('input', { type: 'text', defaultValue: '123', 'data-cursor': 'end' }),
+	            'Focus: ',
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-focus': true }),
+	            React.createElement('br', null),
+	            'Focus: ',
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-focus': true }),
+	            React.createElement('br', null),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '1' }),
 	            React.createElement(
 	                'button',
 	                { onClick: this.setCursor },
@@ -84,16 +90,7 @@
 	            ),
 	            React.createElement('br', null),
 	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement(
-	                'textarea',
-	                null,
-	                'afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg'
-	            ),
+	            React.createElement('textarea', { defaultValue: 'afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' }),
 	            React.createElement(
 	                'button',
 	                { onClick: this.setCursor },
@@ -20489,19 +20486,14 @@
 
 	var _arguments = arguments;
 	var setCursorMixin = {
-	    componentWillMount: function componentWillMount() {
-	        //debugger;
-
-	        //console.log(this.getDOMNode());
-
-	        console.log('componentWillMount');
-	    },
 	    componentDidMount: function componentDidMount() {
-	        //debugger;
+	        var node = this.getDOMNode();
 
-	        console.log(this.getDOMNode());
+	        if (!node) return false;
 
-	        console.log('componentWillMount');
+	        var focus = Array.prototype.slice.call(node.querySelectorAll('[data-focus]'));
+
+	        if (focus.length > 0) focus.pop().focus();
 	    },
 	    setCursor: function setCursor(node, position) {
 	        console.log(_arguments);

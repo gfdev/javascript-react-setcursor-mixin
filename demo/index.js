@@ -79,10 +79,14 @@
 	            'Focus: ',
 	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-focus': true }),
 	            React.createElement('br', null),
-	            'Focus: ',
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-focus': true }),
-	            React.createElement('br', null),
 	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '1' }),
+	            React.createElement('br', null),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '2' }),
+	            React.createElement('br', null),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '3' }),
+	            React.createElement('br', null),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '-1' }),
+	            React.createElement('br', null),
 	            React.createElement(
 	                'button',
 	                { onClick: this.setCursor },
@@ -20485,6 +20489,25 @@
 	'use strict';
 
 	var _arguments = arguments;
+	function setCursor() {
+	    if (s && ref && this.refs[ref]) {
+	        var node = this.refs[ref].refs.input.refs.input.getDOMNode(),
+	            l = node.value.length;
+
+	        if (node.createTextRange) {
+	            var tr = node.createTextRange();
+	            tr.collapse(true);
+	            tr.moveEnd(l);
+	            tr.moveStart(l);
+	            tr.select();
+	        } else if (node.setSelectionRange) {
+	            node.setSelectionRange(l, l);
+	        }
+
+	        node.focus();
+	    }
+	}
+
 	var setCursorMixin = {
 	    componentDidMount: function componentDidMount() {
 	        var node = this.getDOMNode();
@@ -20494,26 +20517,13 @@
 	        var focus = Array.prototype.slice.call(node.querySelectorAll('[data-focus]'));
 
 	        if (focus.length > 0) focus.pop().focus();
+
+	        Array.prototype.slice.call(node.querySelectorAll('[data-cursor]')).forEach(function (item) {
+	            console.log(item);
+	        });
 	    },
 	    setCursor: function setCursor(node, position) {
 	        console.log(_arguments);
-
-	        if (s && ref && undefined.refs[ref]) {
-	            var node = undefined.refs[ref].refs.input.refs.input.getDOMNode(),
-	                l = node.value.length;
-
-	            if (node.createTextRange) {
-	                var tr = node.createTextRange();
-	                tr.collapse(true);
-	                tr.moveEnd(l);
-	                tr.moveStart(l);
-	                tr.select();
-	            } else if (node.setSelectionRange) {
-	                node.setSelectionRange(l, l);
-	            }
-
-	            node.focus();
-	        }
 	    }
 	};
 

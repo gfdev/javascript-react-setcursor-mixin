@@ -29,9 +29,11 @@ var Index = React.createClass({
         return (
             <div>
                 Focus: <input type='text' defaultValue='1234567890' data-focus /><br />
-                Focus: <input type='text' defaultValue='1234567890' data-focus /><br />
 
-                <input type='text' defaultValue='1234567890' data-cursor='1' />
+                <input type='text' defaultValue='1234567890' data-cursor='1' /><br />
+                <input type='text' defaultValue='1234567890' data-cursor='2' /><br />
+                <input type='text' defaultValue='1234567890' data-cursor='3' /><br />
+                <input type='text' defaultValue='1234567890' data-cursor='-1' /><br />
 
                 <button onClick={this.setCursor}>Set cursor to end of text</button>
                 <br /><br />

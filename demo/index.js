@@ -72,24 +72,30 @@
 
 	    //componentWillUnmount: function () {},
 
+	    //setCursor: function(e) {
+	    //    console.log(e);
+	    //},
 	    render: function render() {
 	        return React.createElement(
 	            'div',
 	            null,
 	            'Focus: ',
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-focus': true }),
+	            React.createElement('input', { type: 'text', 'data-focus': true }),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '1' }),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '2' }),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '1', id: 'input1' }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.setCursor.bind(null, '#input1') },
+	                'Set cursor to end of text'
+	            ),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '3' }),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '-1' }),
+	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '-1', 'data-cursor-position': '-1' }),
 	            React.createElement('br', null),
 	            React.createElement(
 	                'button',
-	                { onClick: this.setCursor },
+	                { onClick: this.setCursor.bind(null, this.refs['input1']) },
 	                'Set cursor to end of text'
 	            ),
 	            React.createElement('br', null),
@@ -20484,12 +20490,14 @@
 
 /***/ },
 /* 157 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _arguments = arguments;
-	function setCursor() {
+	var React = __webpack_require__(1);
+
+	function setCursor(node, position) {
+
 	    if (s && ref && this.refs[ref]) {
 	        var node = this.refs[ref].refs.input.refs.input.getDOMNode(),
 	            l = node.value.length;
@@ -20510,20 +20518,23 @@
 
 	var setCursorMixin = {
 	    componentDidMount: function componentDidMount() {
-	        var node = this.getDOMNode();
+	        var node = React.findDOMNode(this);
 
 	        if (!node) return false;
 
-	        var focus = Array.prototype.slice.call(node.querySelectorAll('[data-focus]'));
+	        var focus = node.querySelector('[data-focus]');
 
-	        if (focus.length > 0) focus.pop().focus();
-
-	        Array.prototype.slice.call(node.querySelectorAll('[data-cursor]')).forEach(function (item) {
-	            console.log(item);
-	        });
+	        if (focus) {
+	            focus.focus();
+	        } else {
+	            focus = node.querySelector('[data-focus]');
+	        }
 	    },
-	    setCursor: function setCursor(node, position) {
-	        console.log(_arguments);
+	    setCursor: function setCursor(node, e) {
+	        console.warn('setCursor');
+	        console.log(e);
+	        console.log(e.target);
+	        console.log(node);
 	    }
 	};
 

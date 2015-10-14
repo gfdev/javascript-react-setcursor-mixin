@@ -1,6 +1,9 @@
 'use strict';
 
-function setCursor() {
+var React = require('react');
+
+function setCursor(node, position) {
+
     if (s && ref && this.refs[ref]) {
         var node = this.refs[ref].refs.input.refs.input.getDOMNode(),
             l = node.value.length;
@@ -21,23 +24,22 @@ function setCursor() {
 
 var setCursorMixin = {
     componentDidMount: function() {
-        var node = this.getDOMNode();
+        var node = React.findDOMNode(this);
 
         if (!node) return false;
 
-        var focus = Array.prototype.slice.call(node.querySelectorAll('[data-focus]'));
+        var focus = node.querySelector('[data-focus]');
 
-        if (focus.length > 0) focus.pop().focus();
-
-        Array.prototype.slice.call(node.querySelectorAll('[data-cursor]')).forEach(function(item) {
-            console.log(item);
-        });
-
+        if (focus) {
+            focus.focus();
+        } else {
+            focus = node.querySelector('[data-focus]');
+        }
     },
-    setCursor: (node, position) => {
-        console.log(arguments);
-
-
+    setCursor: function(node, e) { console.warn('setCursor');
+        console.log(e);
+        console.log(e.target);
+        console.log(node);
     }
 };
 

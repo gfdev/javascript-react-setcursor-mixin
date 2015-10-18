@@ -33,16 +33,24 @@ var Index = React.createClass({
             <div>
                 Focus: <input type='text' data-focus /><br /><br />
 
-                <input type='text' defaultValue='1234567890' data-cursor='1' id='input1' />
-                <button onClick={this.setCursor.bind(null, '#input1')}>Set cursor to end of text</button>
+                <input ref='input1' type='text' defaultValue='1234567890' />
+                <button onClick={this.setCursor.bind(null, 'input1', -1)}>Set cursor to end of text</button>
+                <br /><br />
+                <input ref='input2' type='password' defaultValue='1234567890' />
+                <button onClick={this.setCursor.bind(null, 'input2', -1)}>Set cursor to end of text</button>
+                <br /><br />
+                <input ref='input3' type='search' defaultValue='1234567890' />
+                <button onClick={this.setCursor.bind(null, 'input3', -1)}>Set cursor to end of text</button>
+                <br /><br />
+                <input ref='input4' type='tel' defaultValue='1234567890' />
+                <button onClick={this.setCursor.bind(null, 'input4', -1)}>Set cursor to end of text</button>
+                <br /><br />
+                <input ref='input5' type='url' defaultValue='1234567890' />
+                <button onClick={this.setCursor.bind(null, 'input5', -1)}>Set cursor to end of text</button>
                 <br /><br />
 
-                <input type='text' defaultValue='1234567890' data-cursor='-1' data-cursor-position='-1' /><br />
-
-                <button onClick={this.setCursor.bind(null, this.refs['input1'])}>Set cursor to end of text</button>
-                <br /><br />
-                <textarea defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' />
-                <button onClick={this.setCursor}>Set cursor to end of text</button>
+                <textarea ref='textarea1' defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' />
+                <button onClick={this.setCursor.bind(null, 'textarea1', 3)}>Set cursor to end of text</button>
             </div>
         );
     }

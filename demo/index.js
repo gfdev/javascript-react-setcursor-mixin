@@ -83,27 +83,50 @@
 	            React.createElement('input', { type: 'text', 'data-focus': true }),
 	            React.createElement('br', null),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '1', id: 'input1' }),
+	            React.createElement('input', { ref: 'input1', type: 'text', defaultValue: '1234567890' }),
 	            React.createElement(
 	                'button',
-	                { onClick: this.setCursor.bind(null, '#input1') },
+	                { onClick: this.setCursor.bind(null, 'input1', -1) },
 	                'Set cursor to end of text'
 	            ),
 	            React.createElement('br', null),
 	            React.createElement('br', null),
-	            React.createElement('input', { type: 'text', defaultValue: '1234567890', 'data-cursor': '-1', 'data-cursor-position': '-1' }),
-	            React.createElement('br', null),
+	            React.createElement('input', { ref: 'input2', type: 'password', defaultValue: '1234567890' }),
 	            React.createElement(
 	                'button',
-	                { onClick: this.setCursor.bind(null, this.refs['input1']) },
+	                { onClick: this.setCursor.bind(null, 'input2', -1) },
 	                'Set cursor to end of text'
 	            ),
 	            React.createElement('br', null),
 	            React.createElement('br', null),
-	            React.createElement('textarea', { defaultValue: 'afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' }),
+	            React.createElement('input', { ref: 'input3', type: 'search', defaultValue: '1234567890' }),
 	            React.createElement(
 	                'button',
-	                { onClick: this.setCursor },
+	                { onClick: this.setCursor.bind(null, 'input3', -1) },
+	                'Set cursor to end of text'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('input', { ref: 'input4', type: 'tel', defaultValue: '1234567890' }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.setCursor.bind(null, 'input4', -1) },
+	                'Set cursor to end of text'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('input', { ref: 'input5', type: 'url', defaultValue: '1234567890' }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.setCursor.bind(null, 'input5', -1) },
+	                'Set cursor to end of text'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('textarea', { ref: 'textarea1', defaultValue: 'afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.setCursor.bind(null, 'textarea1', 3) },
 	                'Set cursor to end of text'
 	            )
 	        );
@@ -20494,26 +20517,24 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    allowTags = ['INPUT', 'TEXTAREA'],
+	    allowInputTypes = ['text', 'password', 'search', 'email', 'tel', 'url'];
 
-	function setCursor(node, position) {
+	function _setCursor(node, position) {
+	    var l = node.value.length;
 
-	    if (s && ref && this.refs[ref]) {
-	        var node = this.refs[ref].refs.input.refs.input.getDOMNode(),
-	            l = node.value.length;
-
-	        if (node.createTextRange) {
-	            var tr = node.createTextRange();
-	            tr.collapse(true);
-	            tr.moveEnd(l);
-	            tr.moveStart(l);
-	            tr.select();
-	        } else if (node.setSelectionRange) {
-	            node.setSelectionRange(l, l);
-	        }
-
-	        node.focus();
+	    if (node.createTextRange) {
+	        var tr = node.createTextRange();
+	        tr.collapse(true);
+	        tr.moveEnd(l);
+	        tr.moveStart(l);
+	        tr.select();
+	    } else if (node.setSelectionRange) {
+	        node.setSelectionRange(l, l);
 	    }
+
+	    node.focus();
 	}
 
 	var setCursorMixin = {
@@ -20527,14 +20548,25 @@
 	        if (focus) {
 	            focus.focus();
 	        } else {
-	            focus = node.querySelector('[data-focus]');
+	            focus = node.querySelector('[data-cursor]');
 	        }
 	    },
-	    setCursor: function setCursor(node, e) {
+	    setCursor: function setCursor(id, position, e) {
 	        console.warn('setCursor');
-	        console.log(e);
-	        console.log(e.target);
-	        console.log(node);
+	        if (typeof id !== 'string') return;
+	        if (typeof position !== 'number') return;
+
+	        var node = React.findDOMNode(this.refs[id]) || document.getElementById(id);
+
+	        if (!node) return;
+	        if (allowTags.indexOf(node.tagName) === -1) return;
+	        if (node.tagName === 'INPUT' && allowInputTypes.indexOf(node.type) === -1) return;
+
+	        console.warn('id: ' + id);
+	        console.warn('pos: ' + position);
+	        console.warn('tag: ' + node.tagName);
+
+	        _setCursor(node, position);
 	    }
 	};
 

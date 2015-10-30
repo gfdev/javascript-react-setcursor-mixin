@@ -15,7 +15,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: require.resolve('react'), loader: 'expose?React' },
+            //{ test: require.resolve('react'), loader: 'expose?React' },
             { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
             { test: /\.s?css$/, loader: 'style-loader!css-loader?minimize&-sourceMap!sass-loader' }
         ]
@@ -30,8 +30,8 @@ module.exports = {
     ],
     resolve: {
         extensions: ['', '.js', '.jsx']
-    },
+    }/*,
     externals: {
         "react": "React"
-    }
+    }*/
 };

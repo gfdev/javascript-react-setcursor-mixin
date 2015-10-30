@@ -1,5 +1,5 @@
-var React = require('react')
-    , setCursorMixin = require('../setCursorMixin')
+var //React = require('react')
+    setCursorMixin = require('../setCursorMixin')
 ;
 
 require('./index.scss');

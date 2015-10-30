@@ -33,6 +33,7 @@
     "html-webpack-plugin": "^1.6.1",
     "node-sass": "^3.3.3",
     "normalize.css": "^3.0.3",
+    "react-bootstrap": "^0.26.4",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.12.4",
     "webpack": "^1.12.2"

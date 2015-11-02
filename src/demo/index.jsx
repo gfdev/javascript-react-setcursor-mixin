@@ -2,7 +2,10 @@ var React = require('react')
     , setCursorMixin = require('../setCursorMixin')
 ;
 
+var { Grid, Col, Row, Nav, NavItem, NavDropdown, MenuItem, Panel, NavBrand, Navbar, CollapsibleNav, ListGroup, ListGroupItem, PageHeader, Well, Input } = require('react-bootstrap');
+
 require('./index.scss');
+require("bootstrap-webpack");
 
 var Index = React.createClass({
     mixins: [
@@ -31,7 +34,20 @@ var Index = React.createClass({
     render: function() {
         return (
             <div>
-                Focus: <input type='text' data-focus /><br /><br />
+                <Navbar fixedTop={true}>
+                    <NavBrand><a href='#'>setCursorMixin</a></NavBrand>
+                </Navbar>
+
+                <PageHeader>Usage: setCursorMixin</PageHeader>
+
+                <Input type='text' label='Default focus' data-focus />
+                <code className='prettyprint'>
+                    var a = 'b';
+                </code>
+
+                <Well></Well>
+
+
 
                 <input ref='input1' type='text' defaultValue='1234567890' />
                 <button onClick={this.setCursor.bind(null, 'input1', -1)}>Set cursor to end of text</button>
@@ -50,6 +66,7 @@ var Index = React.createClass({
                 <br /><br />
 
                 <textarea ref='textarea1' defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' />
+
                 <button onClick={this.setCursor.bind(null, 'textarea1', 3)}>Set cursor to end of text</button>
             </div>
         );

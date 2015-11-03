@@ -51,6 +51,8 @@
 
 	var _require = __webpack_require__(227);
 
+	var Button = _require.Button;
+	var Modal = _require.Modal;
 	var Grid = _require.Grid;
 	var Col = _require.Col;
 	var Row = _require.Row;
@@ -79,11 +81,17 @@
 	    //statics: {},
 	    //displayName: 'Test',
 
-	    //getInitialState: function() {},
+	    getInitialState: function getInitialState() {
+	        return {};
+	    },
 	    //getDefaultProps: function () {},
 
 	    //componentWillMount: function () {},
-	    //componentDidMount: function () {},
+	    componentDidMount: function componentDidMount() {
+	        var name = arguments.length <= 0 || arguments[0] === undefined ? 'John' : arguments[0];
+	        var surname = arguments.length <= 1 || arguments[1] === undefined ? 'Doe' : arguments[1];
+	        console.log(name, surname);
+	    },
 
 	    //componentWillReceiveProps: function () {},
 	    //shouldComponentUpdate: function () {},
@@ -105,25 +113,112 @@
 	                React.createElement(
 	                    NavBrand,
 	                    null,
-	                    React.createElement(
-	                        'a',
-	                        { href: '#' },
-	                        'setCursorMixin'
-	                    )
+	                    'setCursorMixin'
 	                )
 	            ),
 	            React.createElement(
 	                PageHeader,
 	                null,
-	                'Usage: setCursorMixin'
+	                'Usage:'
 	            ),
-	            React.createElement(Input, { type: 'text', label: 'Default focus', 'data-focus': true }),
+	            React.createElement(Input, { type: 'text', label: 'onload focus', value: '1234567890', 'data-focus': '1' }),
 	            React.createElement(
-	                'code',
-	                { className: 'prettyprint' },
-	                'var a = \'b\';'
+	                Well,
+	                null,
+	                React.createElement(
+	                    'pre',
+	                    { className: 'prettyprint' },
+	                    ['<input type=\'text\' data-focus />']
+	                )
 	            ),
-	            React.createElement(Well, null),
+	            React.createElement(
+	                Modal,
+	                { show: false, onHide: this.close },
+	                React.createElement(
+	                    Modal.Header,
+	                    { closeButton: true },
+	                    React.createElement(
+	                        Modal.Title,
+	                        null,
+	                        'Modal heading'
+	                    )
+	                ),
+	                React.createElement(
+	                    Modal.Body,
+	                    null,
+	                    React.createElement(Input, { type: 'text', label: 'onload focus with position -1', value: '1234567890', 'data-focus': true }),
+	                    React.createElement(
+	                        Well,
+	                        null,
+	                        React.createElement(
+	                            'pre',
+	                            { className: 'prettyprint' },
+	                            ['<input type=\'text\' data-focus />']
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    Modal.Footer,
+	                    null,
+	                    React.createElement(
+	                        Button,
+	                        { onClick: this.close },
+	                        'Close'
+	                    )
+	                )
+	            ),
+	            React.createElement(Input, { type: 'text', label: 'onload focus with position -1', value: '1234567890', 'data-focus': '-1' }),
+	            React.createElement(
+	                Well,
+	                null,
+	                React.createElement(
+	                    'pre',
+	                    { className: 'prettyprint' },
+	                    ['<input type=\'text\' data-focus=\'-1\' />']
+	                )
+	            ),
+	            React.createElement(Input, { type: 'text', label: 'onload focus with position 5', value: '1234567890', 'data-focus': '-1' }),
+	            React.createElement(
+	                Well,
+	                null,
+	                React.createElement(
+	                    'pre',
+	                    { className: 'prettyprint' },
+	                    ['<input type=\'text\' data-focus=\'5\' />']
+	                )
+	            ),
+	            React.createElement(
+	                Row,
+	                null,
+	                React.createElement(
+	                    Col,
+	                    { lg: 6 },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'input-group' },
+	                        React.createElement(
+	                            'span',
+	                            { className: 'input-group-btn' },
+	                            React.createElement(
+	                                'button',
+	                                { className: 'btn btn-default', type: 'button' },
+	                                'Set!'
+	                            )
+	                        ),
+	                        React.createElement(Input, { type: 'text', className: 'form-control' })
+	                    )
+	                )
+	            ),
+	            React.createElement('br', null),
+	            React.createElement(
+	                Well,
+	                null,
+	                React.createElement(
+	                    'pre',
+	                    { className: 'prettyprint' },
+	                    ['<input ref=\'input\' type=\'text\' />\n\n' + '<button onClick={this.setCursor.bind(null, \'input\', -1)}>Set cursor to end of text</button>']
+	                )
+	            ),
 	            React.createElement('input', { ref: 'input1', type: 'text', defaultValue: '1234567890' }),
 	            React.createElement(
 	                'button',
@@ -20629,19 +20724,25 @@
 
 	var React = __webpack_require__(70),
 	    allowTags = ['INPUT', 'TEXTAREA'],
-	    allowInputTypes = ['text', 'password', 'search', 'email', 'tel', 'url'];
+	    allowInputTypes = ['text', 'password', 'search', 'email', 'tel', 'url'],
+	    attr = 'data-focus';
 
 	function _setCursor(node, position) {
-	    var l = node.value.length;
+	    console.warn('_setCursor');console.log(node);console.log(position);
+	    var length = node.value.length;
 
-	    if (node.createTextRange) {
-	        var tr = node.createTextRange();
-	        tr.collapse(true);
-	        tr.moveEnd(l);
-	        tr.moveStart(l);
-	        tr.select();
-	    } else if (node.setSelectionRange) {
-	        node.setSelectionRange(l, l);
+	    if (!isNaN(position) && position !== 0 && length) {
+	        position = position === -1 ? length : position > length ? length : position;
+
+	        if (node.createTextRange) {
+	            var tr = node.createTextRange();
+	            tr.collapse(true);
+	            tr.moveEnd(position);
+	            tr.moveStart(position);
+	            tr.select();
+	        } else if (node.setSelectionRange) {
+	            node.setSelectionRange(position, position);
+	        }
 	    }
 
 	    node.focus();
@@ -20651,20 +20752,16 @@
 	    componentDidMount: function componentDidMount() {
 	        var node = React.findDOMNode(this);
 
-	        if (!node) return false;
+	        if (!node) return;
 
-	        var focus = node.querySelector('[data-focus]');
+	        var focusNode = node.querySelector('[' + attr + ']');
 
-	        if (focus) {
-	            focus.focus();
-	        } else {
-	            focus = node.querySelector('[data-cursor]');
-	        }
+	        if (focusNode) _setCursor(focusNode, +focusNode.getAttribute(attr));
 	    },
 	    setCursor: function setCursor(id, position, e) {
 	        console.warn('setCursor');
 	        if (typeof id !== 'string') return;
-	        if (typeof position !== 'number') return;
+	        if (typeof +position !== 'number') return;
 
 	        var node = React.findDOMNode(this.refs[id]) || document.getElementById(id);
 
@@ -36793,7 +36890,7 @@
 	exports.i(__webpack_require__(466), "");
 
 	// module
-	exports.push([module.id, "html{font:.9em normal Arial,sans-serif;color:#626771;background-color:#fff}#body{padding:20px;position:absolute;width:100%;height:100%;margin:auto;top:0;right:0;bottom:0;left:0}", ""]);
+	exports.push([module.id, "html{font:.9em normal Arial,sans-serif;color:#626771;background-color:#fff}#body{padding:20px;position:absolute;width:100%;height:100%;margin:auto;top:0;right:0;bottom:0;left:0}pre.prettyprint{border:0;margin:0}", ""]);
 
 	// exports
 

@@ -3,19 +3,28 @@
 var React = require('react')
     , allowTags = ['INPUT', 'TEXTAREA']
     , allowInputTypes = ['text', 'password', 'search', 'email', 'tel', 'url']
+    , attr = 'data-focus'
 ;
 
-function _setCursor(node, position) {
-    var l = node.value.length;
+function _setCursor(node, position) { console.warn('_setCursor'); console.log(node); console.log(position);
+    var length = node.value.length;
 
-    if (node.createTextRange) {
-        var tr = node.createTextRange();
-        tr.collapse(true);
-        tr.moveEnd(l);
-        tr.moveStart(l);
-        tr.select();
-    } else if (node.setSelectionRange) {
-        node.setSelectionRange(l, l);
+    if (!isNaN(position) && position !== 0 && length) {
+        position = position === -1
+            ? length
+            : position > length
+                ? length
+            : position;
+
+        if (node.createTextRange) {
+            var tr = node.createTextRange();
+            tr.collapse(true);
+            tr.moveEnd(position);
+            tr.moveStart(position);
+            tr.select();
+        } else if (node.setSelectionRange) {
+            node.setSelectionRange(position, position);
+        }
     }
 
     node.focus();
@@ -25,19 +34,15 @@ var setCursorMixin = {
     componentDidMount: function() {
         var node = React.findDOMNode(this);
 
-        if (!node) return false;
+        if (!node) return;
 
-        var focus = node.querySelector('[data-focus]');
+        var focusNode = node.querySelector('[' + attr + ']');
 
-        if (focus) {
-            focus.focus();
-        } else {
-            focus = node.querySelector('[data-cursor]');
-        }
+        if (focusNode) _setCursor(focusNode, +focusNode.getAttribute(attr));
     },
     setCursor: function(id, position, e) { console.warn('setCursor');
         if (typeof id !== 'string') return;
-        if (typeof position !== 'number') return;
+        if (typeof +position !== 'number') return;
 
         var node = React.findDOMNode(this.refs[id])
             || document.getElementById(id);

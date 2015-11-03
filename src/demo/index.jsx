@@ -2,7 +2,7 @@ var React = require('react')
     , setCursorMixin = require('../setCursorMixin')
 ;
 
-var { Grid, Col, Row, Nav, NavItem, NavDropdown, MenuItem, Panel, NavBrand, Navbar, CollapsibleNav, ListGroup, ListGroupItem, PageHeader, Well, Input } = require('react-bootstrap');
+var { Button, Modal, Grid, Col, Row, Nav, NavItem, NavDropdown, MenuItem, Panel, NavBrand, Navbar, CollapsibleNav, ListGroup, ListGroupItem, PageHeader, Well, Input } = require('react-bootstrap');
 
 require('./index.scss');
 require("bootstrap-webpack");
@@ -15,11 +15,13 @@ var Index = React.createClass({
     //statics: {},
     //displayName: 'Test',
 
-    //getInitialState: function() {},
+    getInitialState: function() {
+        return {};
+    },
     //getDefaultProps: function () {},
 
     //componentWillMount: function () {},
-    //componentDidMount: function () {},
+    componentDidMount: (name = 'John', surname = 'Doe') => {console.log(name, surname);},
 
     //componentWillReceiveProps: function () {},
     //shouldComponentUpdate: function () {},
@@ -35,17 +37,68 @@ var Index = React.createClass({
         return (
             <div>
                 <Navbar fixedTop={true}>
-                    <NavBrand><a href='#'>setCursorMixin</a></NavBrand>
+                    <NavBrand>setCursorMixin</NavBrand>
                 </Navbar>
+                <PageHeader>Usage:</PageHeader>
 
-                <PageHeader>Usage: setCursorMixin</PageHeader>
+                <Input type='text' label='onload focus' value='1234567890' data-focus='1' />
+                <Well>
+                    <pre className='prettyprint'>{[
+                        '<input type=\'text\' data-focus />'
+                    ]}</pre>
+                </Well>
 
-                <Input type='text' label='Default focus' data-focus />
-                <code className='prettyprint'>
-                    var a = 'b';
-                </code>
+                <Modal show={false} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Input type='text' label='onload focus with position -1' value='1234567890' data-focus />
+                        <Well>
+                    <pre className='prettyprint'>{[
+                        '<input type=\'text\' data-focus />'
+                        ]}</pre>
+                        </Well>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
 
-                <Well></Well>
+                <Input type='text' label='onload focus with position -1' value='1234567890' data-focus='-1' />
+                <Well>
+                    <pre className='prettyprint'>{[
+                        '<input type=\'text\' data-focus=\'-1\' />'
+                    ]}</pre>
+                </Well>
+
+                <Input type='text' label='onload focus with position 5' value='1234567890' data-focus='-1' />
+                <Well>
+                    <pre className='prettyprint'>{[
+                        '<input type=\'text\' data-focus=\'5\' />'
+                        ]}</pre>
+                </Well>
+
+                <Row>
+                    <Col lg={6}>
+                        <div className='input-group'>
+                              <span className='input-group-btn'>
+                                  <button className='btn btn-default' type='button'>Set!</button>
+                              </span>
+                            <Input type='text' className='form-control' />
+                        </div>
+                    </Col>
+                </Row>
+
+                <br />
+
+                <Well>
+                    <pre className='prettyprint'>{[
+                        '<input ref=\'input\' type=\'text\' />\n\n' +
+                            '<button onClick={this.setCursor.bind(null, \'input\', -1)}>Set cursor to end of text</button>'
+                        ]}</pre>
+                </Well>
+
 
 
 

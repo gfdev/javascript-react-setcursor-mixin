@@ -81,13 +81,13 @@
 	    //statics: {},
 	    //displayName: 'Test',
 
-	    getInitialState: function getInitialState() {
+	    getInitialState: function () {
 	        return {};
 	    },
 	    //getDefaultProps: function () {},
 
 	    //componentWillMount: function () {},
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        var name = arguments.length <= 0 || arguments[0] === undefined ? 'John' : arguments[0];
 	        var surname = arguments.length <= 1 || arguments[1] === undefined ? 'Doe' : arguments[1];
 	        console.log(name, surname);
@@ -103,7 +103,7 @@
 	    //setCursor: function(e) {
 	    //    console.log(e);
 	    //},
-	    render: function render() {
+	    render: function () {
 	        return React.createElement(
 	            'div',
 	            null,
@@ -20749,7 +20749,7 @@
 	}
 
 	var setCursorMixin = {
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        var node = React.findDOMNode(this);
 
 	        if (!node) return;
@@ -20758,7 +20758,7 @@
 
 	        if (focusNode) _setCursor(focusNode, +focusNode.getAttribute(attr));
 	    },
-	    setCursor: function setCursor(id, position, e) {
+	    setCursor: function (id, position, e) {
 	        console.warn('setCursor');
 	        if (typeof id !== 'string') return;
 	        if (typeof +position !== 'number') return;

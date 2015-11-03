@@ -16,7 +16,7 @@ module.exports = {
     module: {
         loaders: [
             //{ test: require.resolve('react'), loader: 'expose?React' },
-            { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader?blacklist=spec.functionName' },
             { test: /\.s?css$/, loader: 'style-loader!css-loader?minimize&-sourceMap!sass-loader' },
             { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
             {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},

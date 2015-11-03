@@ -101,7 +101,6 @@ var Index = React.createClass({
 
 
 
-
                 <input ref='input1' type='text' defaultValue='1234567890' />
                 <button onClick={this.setCursor.bind(null, 'input1', -1)}>Set cursor to end of text</button>
                 <br /><br />

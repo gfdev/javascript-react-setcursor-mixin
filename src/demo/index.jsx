@@ -1,4 +1,6 @@
 var React = require('react')
+    , $ = require('jquery')
+    , _ = require('lodash')
     , setCursorMixin = require('../setCursorMixin')
 ;
 
@@ -7,119 +9,98 @@ var { Button, Modal, Grid, Col, Row, Nav, NavItem, NavDropdown, MenuItem, Panel,
 require('./index.scss');
 require("bootstrap-webpack");
 
+var IndexModal = React.createClass({
+    displayName: 'IndexModal',
+    mixins: [
+        setCursorMixin
+    ],
+    render: function() {
+        return (
+            <Modal show={this.props.show}
+                   onHide={this.props.onHide}
+                   animation={true}
+                   onEntered={() => { this.setCursor('input', this.props.position) }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Example</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <input ref='input' type='text' defaultValue='1234567890' className='form-control' />
+                </Modal.Body>
+            </Modal>
+        );
+    }
+});
+
 var Index = React.createClass({
     mixins: [
         setCursorMixin
     ],
-    //propTypes: {},
-    //statics: {},
-    //displayName: 'Test',
-
+    displayName: 'Index',
     getInitialState: function() {
-        return {};
+        return {
+            modal: {
+                show: false,
+                position: 0
+            }
+        };
     },
-    //getDefaultProps: function () {},
-
-    //componentWillMount: function () {},
-    componentDidMount: (name = 'John', surname = 'Doe') => {console.log(name, surname);},
-
-    //componentWillReceiveProps: function () {},
-    //shouldComponentUpdate: function () {},
-    //componentWillUpdate: function () {},
-    //componentDidUpdate: function () {},
-
-    //componentWillUnmount: function () {},
-
-    //setCursor: function(e) {
-    //    console.log(e);
-    //},
+    onModalShow: function(position) {
+        this.setState({ modal: {
+            show: true,
+            position: position
+        }});
+    },
+    onModalHide: function() { console.warn('onModalHide');
+        this.setState(this.getInitialState());
+    },
     render: function() {
         return (
             <div>
                 <Navbar fixedTop={true}>
-                    <NavBrand>setCursorMixin</NavBrand>
+                    <NavBrand>var setCursorMixin = require('react-setcursor');</NavBrand>
                 </Navbar>
                 <PageHeader>Usage:</PageHeader>
 
-                <Input type='text' label='onload focus' value='1234567890' data-focus='1' />
+                <h5>Set focus when page loaded:</h5>
                 <Well>
-                    <pre className='prettyprint'>{[
-                        '<input type=\'text\' data-focus />'
-                    ]}</pre>
+                    <pre className='prettyprint'>
+                        { '<input type="text" data-focus />' }
+                    </pre>
                 </Well>
+                <Input type='text' data-focus />
 
-                <Modal show={false} onHide={this.close}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Input type='text' label='onload focus with position -1' value='1234567890' data-focus />
-                        <Well>
-                    <pre className='prettyprint'>{[
-                        '<input type=\'text\' data-focus />'
-                        ]}</pre>
-                        </Well>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.close}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
+                <hr />
 
-                <Input type='text' label='onload focus with position -1' value='1234567890' data-focus='-1' />
+                <h5>Set cursor to end of text when page loaded:</h5>
                 <Well>
-                    <pre className='prettyprint'>{[
-                        '<input type=\'text\' data-focus=\'-1\' />'
-                    ]}</pre>
+                    <pre className='prettyprint'>
+                        {['<input type="text" data-focus="-1" />']}
+                    </pre>
                 </Well>
+                <Button onClick={this.onModalShow.bind(null, -1)}>Show Example</Button>
 
-                <Input type='text' label='onload focus with position 5' value='1234567890' data-focus='-1' />
+                <hr />
+
+                <h5>Set cursor to 5 symbol of text when page loaded:</h5>
                 <Well>
-                    <pre className='prettyprint'>{[
-                        '<input type=\'text\' data-focus=\'5\' />'
-                        ]}</pre>
+                    <pre className='prettyprint'>
+                        {['<input type="text" data-focus="5" />']}
+                    </pre>
                 </Well>
+                <Button onClick={this.onModalShow.bind(null, 5)}>Show Example</Button>
 
-                <Row>
-                    <Col lg={6}>
-                        <div className='input-group'>
-                              <span className='input-group-btn'>
-                                  <button className='btn btn-default' type='button'>Set!</button>
-                              </span>
-                            <Input type='text' className='form-control' />
-                        </div>
-                    </Col>
-                </Row>
-
-                <br />
-
-                <Well>
-                    <pre className='prettyprint'>{[
-                        '<input ref=\'input\' type=\'text\' />\n\n' +
-                            '<button onClick={this.setCursor.bind(null, \'input\', -1)}>Set cursor to end of text</button>'
-                        ]}</pre>
-                </Well>
+                <hr />
 
 
-
-                <input ref='input1' type='text' defaultValue='1234567890' />
-                <button onClick={this.setCursor.bind(null, 'input1', -1)}>Set cursor to end of text</button>
-                <br /><br />
-                <input ref='input2' type='password' defaultValue='1234567890' />
-                <button onClick={this.setCursor.bind(null, 'input2', -1)}>Set cursor to end of text</button>
-                <br /><br />
-                <input ref='input3' type='search' defaultValue='1234567890' />
-                <button onClick={this.setCursor.bind(null, 'input3', -1)}>Set cursor to end of text</button>
-                <br /><br />
-                <input ref='input4' type='tel' defaultValue='1234567890' />
-                <button onClick={this.setCursor.bind(null, 'input4', -1)}>Set cursor to end of text</button>
-                <br /><br />
-                <input ref='input5' type='url' defaultValue='1234567890' />
-                <button onClick={this.setCursor.bind(null, 'input5', -1)}>Set cursor to end of text</button>
                 <br /><br />
 
                 <textarea ref='textarea1' defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' />
 
                 <button onClick={this.setCursor.bind(null, 'textarea1', 3)}>Set cursor to end of text</button>
+
+                <IndexModal show={this.state.modal.show}
+                    position={this.state.modal.position}
+                    onHide={this.onModalHide} />
             </div>
         );
     }

@@ -6,7 +6,7 @@ var React = require('react')
     , attr = 'data-focus'
 ;
 
-function _setCursor(node, position) { console.warn('_setCursor'); console.log(node); console.log(position);
+function _setCursor(node, position) {
     var length = node.value.length;
 
     if (!isNaN(position) && position !== 0 && length) {
@@ -40,9 +40,8 @@ var setCursorMixin = {
 
         if (focusNode) _setCursor(focusNode, +focusNode.getAttribute(attr));
     },
-    setCursor: function(id, position, e) { console.warn('setCursor');
+    setCursor: function(id, position) {
         if (typeof id !== 'string') return;
-        if (typeof +position !== 'number') return;
 
         var node = React.findDOMNode(this.refs[id])
             || document.getElementById(id);
@@ -51,11 +50,7 @@ var setCursorMixin = {
         if (allowTags.indexOf(node.tagName) === -1) return;
         if (node.tagName === 'INPUT' && allowInputTypes.indexOf(node.type) === -1) return;
 
-        console.warn('id: ' + id);
-        console.warn('pos: ' + position);
-        console.warn('tag: ' + node.tagName);
-
-        _setCursor(node, position);
+        _setCursor(node, +position);
     }
 };
 

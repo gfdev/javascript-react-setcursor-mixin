@@ -144,12 +144,17 @@
 	            React.createElement(
 	                PageHeader,
 	                null,
-	                'Usage:'
+	                'Usage'
+	            ),
+	            React.createElement(
+	                'h3',
+	                null,
+	                'Page onLoad'
 	            ),
 	            React.createElement(
 	                'h5',
 	                null,
-	                'Set focus when page loaded:'
+	                'Set focus when page loaded'
 	            ),
 	            React.createElement(
 	                Well,
@@ -165,7 +170,7 @@
 	            React.createElement(
 	                'h5',
 	                null,
-	                'Set cursor to end of text when page loaded:'
+	                'Set cursor to end of text when page loaded'
 	            ),
 	            React.createElement(
 	                Well,
@@ -185,7 +190,7 @@
 	            React.createElement(
 	                'h5',
 	                null,
-	                'Set cursor to 5 symbol of text when page loaded:'
+	                'Set cursor to 5 symbol of text when page loaded'
 	            ),
 	            React.createElement(
 	                Well,
@@ -201,15 +206,16 @@
 	                { onClick: this.onModalShow.bind(null, 5) },
 	                'Show Example'
 	            ),
-	            React.createElement('hr', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('textarea', { ref: 'textarea1', defaultValue: 'afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' }),
 	            React.createElement(
-	                'button',
-	                { onClick: this.setCursor.bind(null, 'textarea1', 3) },
-	                'Set cursor to end of text'
+	                'h3',
+	                null,
+	                'Manual'
 	            ),
+	            React.createElement(Input, { type: 'textarea', wrapperClassName: 'col-xs-10' }),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
 	            React.createElement(IndexModal, { show: this.state.modal.show,
 	                position: this.state.modal.position,
 	                onHide: this.onModalHide })

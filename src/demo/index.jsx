@@ -59,9 +59,9 @@ var Index = React.createClass({
                 <Navbar fixedTop={true}>
                     <NavBrand>var setCursorMixin = require('react-setcursor');</NavBrand>
                 </Navbar>
-                <PageHeader>Usage:</PageHeader>
-
-                <h5>Set focus when page loaded:</h5>
+                <PageHeader>Usage</PageHeader>
+                <h3>Page onLoad</h3>
+                <h5>Set focus when page loaded</h5>
                 <Well>
                     <pre className='prettyprint'>
                         { '<input type="text" data-focus />' }
@@ -71,7 +71,7 @@ var Index = React.createClass({
 
                 <hr />
 
-                <h5>Set cursor to end of text when page loaded:</h5>
+                <h5>Set cursor to end of text when page loaded</h5>
                 <Well>
                     <pre className='prettyprint'>
                         {['<input type="text" data-focus="-1" />']}
@@ -81,7 +81,7 @@ var Index = React.createClass({
 
                 <hr />
 
-                <h5>Set cursor to 5 symbol of text when page loaded:</h5>
+                <h5>Set cursor to 5 symbol of text when page loaded</h5>
                 <Well>
                     <pre className='prettyprint'>
                         {['<input type="text" data-focus="5" />']}
@@ -89,14 +89,11 @@ var Index = React.createClass({
                 </Well>
                 <Button onClick={this.onModalShow.bind(null, 5)}>Show Example</Button>
 
-                <hr />
+                <h3>Manual</h3>
 
+                <Input type="textarea" wrapperClassName="col-xs-10" />
 
-                <br /><br />
-
-                <textarea ref='textarea1' defaultValue='afgdgf sdfgsdfgsd sdfgdsfgsdfg sdfgsdfg jhgjg' />
-
-                <button onClick={this.setCursor.bind(null, 'textarea1', 3)}>Set cursor to end of text</button>
+                <br /><br /><br /><br />
 
                 <IndexModal show={this.state.modal.show}
                     position={this.state.modal.position}

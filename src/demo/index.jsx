@@ -1,13 +1,14 @@
 var React = require('react')
-    , $ = require('jquery')
-    , _ = require('lodash')
+    , ReactDOM = require('react-dom')
+    //, $ = require('jquery')
+    //, _ = require('lodash')
     , setCursorMixin = require('../setCursorMixin')
 ;
 
-var { Button, Modal, Grid, Col, Row, Nav, NavItem, NavDropdown, MenuItem, Panel, NavBrand, Navbar, CollapsibleNav, ListGroup, ListGroupItem, PageHeader, Well, Input } = require('react-bootstrap');
+var { Modal, Navbar, NavbarBrand, PageHeader, Well, Input, Button } = require('react-bootstrap');
 
 require('./index.scss');
-require("bootstrap-webpack");
+//require("bootstrap-webpack");
 
 var IndexModal = React.createClass({
     displayName: 'IndexModal',
@@ -57,7 +58,7 @@ var Index = React.createClass({
         return (
             <div>
                 <Navbar fixedTop={true}>
-                    <NavBrand>var setCursorMixin = require('react-setcursor');</NavBrand>
+                    <NavbarBrand>var setCursorMixin = require('react-setcursor');</NavbarBrand>
                 </Navbar>
                 <PageHeader>Usage</PageHeader>
                 <h3>Page onLoad</h3>
@@ -103,4 +104,4 @@ var Index = React.createClass({
     }
 });
 
-React.render(<Index />, document.getElementById('body'));
+ReactDOM.render(<Index />, document.getElementById('body'));

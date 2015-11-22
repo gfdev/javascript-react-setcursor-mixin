@@ -13,46 +13,70 @@ module.exports = {
         path: path.join(__dirname, 'demo'),
         filename: '[name].js'
     },
-    modulesDirectories: [ 'node_modules', 'bower_components' ],
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        modulesDirectories: [ 'node_modules' ]
+    },
+    //externals: {
+    //    'react': 'React',
+    //    'react-dom': 'ReactDOM'
+    //},
+    //stats: {
+    //    colors: true,
+    //    modules: true,
+    //    reasons: true
+    //},
+    //progress: true,
+    //keepalive: true,
     module: {
         loaders: [
-            //{
-            //    test: require.resolve('react'),
-            //    loader: 'expose?React'
-            //},
+            //{ test: require.resolve('react'), loader: 'expose?React' },
+            //{ test: require.resolve('react-dom'), loader: 'expose?ReactDOM' },
             {
                 test: /\.jsx?$/,
-                exclude: /(?:node_modules|bower_components)/,
-                loader: 'babel-loader',
+                include: [ path.resolve(__dirname, 'src') ],
+                //exclude: /(?:node_modules|bower_components)/,
+                loader: 'babel',
                 query: {
-                    plugins: ['transform-runtime'],
+                    //plugins: ['transform-runtime'],
                     presets: ['es2015', 'react']
                 }
             },
             {
                 test: /\.s?css$/,
-                loader: 'style-loader!css-loader?minimize&-sourceMap!sass-loader'
+                loader: 'style!css!sass'
             },
-            //{ test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
-            //{ test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-            //{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
-            //{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
-            //{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' }
+            {
+                test: /\.woff\d?$/,
+                loader: 'url?limit=10240&mimetype=application/font-woff'
+            },
+            {
+                test: /\.ttf$/
+                , loader: 'url?limit=10240&mimetype=application/octet-stream'
+            },
+            {
+                test: /\.eot$/,
+                loader: 'file'
+            },
+            {
+                test: /\.svg$/,
+                loader: 'url?limit=10240&mimetype=image/svg+xml'
+            }
         ]
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            React: 'react',
+            ReactDOM: 'react-dom'
+        }),
+        new webpack.DefinePlugin({
+            'process.env': { NODE_ENV: '"production"' }
+        }),
         new HtmlWebpackPlugin({
             title: 'Demo: ' + pkg.name + ' v' + pkg.version,
             filename: 'index.html',
             template: 'src/demo/index.html',
             inject: 'body'
         })
-    ],
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    }/*,
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    }*/
+    ]
 };

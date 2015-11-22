@@ -1,7 +1,6 @@
 'use strict';
 
-var React = require('react')
-    , ReactDOM = require('react-dom')
+var ReactDOM = require.resolve('react-dom') ? require('react-dom') : require('react')
     , allowTags = ['INPUT', 'TEXTAREA']
     , allowInputTypes = ['text', 'password', 'search', 'email', 'tel', 'url']
     , attr = 'data-focus'
@@ -44,7 +43,7 @@ var setCursorMixin = {
     setCursor: function(id, position) {
         if (typeof id !== 'string') return;
 
-        var node = React.findDOMNode(this.refs[id])
+        var node = ReactDOM.findDOMNode(this.refs[id])
             || document.getElementById(id);
 
         if (!node) return;

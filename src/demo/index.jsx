@@ -1,14 +1,9 @@
-var React = require('react')
-    , ReactDOM = require('react-dom')
-    //, $ = require('jquery')
-    //, _ = require('lodash')
-    , setCursorMixin = require('../setCursorMixin')
+var setCursorMixin = require('../setCursorMixin')
 ;
 
 var { Modal, Navbar, NavbarBrand, PageHeader, Well, Input, Button } = require('react-bootstrap');
 
 require('./index.scss');
-//require("bootstrap-webpack");
 
 var IndexModal = React.createClass({
     displayName: 'IndexModal',

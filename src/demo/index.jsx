@@ -15,7 +15,7 @@ var IndexModal = React.createClass({
             <Modal show={this.props.show}
                    onHide={this.props.onHide}
                    animation={true}
-                   onEntered={() => { this.setCursor('input', this.props.position) }}>
+                   onEntered={() => { this.setCursor('input', this.props.setcursor) }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Example</Modal.Title>
                 </Modal.Header>
@@ -40,10 +40,10 @@ var Index = React.createClass({
             }
         };
     },
-    onModalShow: function(position) {
+    onModalShow: function(setcursor) {
         this.setState({ modal: {
             show: true,
-            position: position
+            position: setcursor
         }});
     },
     onModalHide: function() { console.warn('onModalHide');
@@ -92,7 +92,7 @@ var Index = React.createClass({
                 <br /><br /><br /><br />
 
                 <IndexModal show={this.state.modal.show}
-                    position={this.state.modal.position}
+                    setcursor={this.state.modal.setcursor}
                     onHide={this.onModalHide} />
             </div>
         );

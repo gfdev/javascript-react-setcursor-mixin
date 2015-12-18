@@ -7,6 +7,8 @@ var ReactDOM = require.resolve('react-dom') ? require('react-dom') : require('re
 ;
 
 function _setCursor(node, position) {
+    node.focus();
+
     var length = node.value.length;
 
     if (!isNaN(position) && position !== 0 && length) {
@@ -18,6 +20,7 @@ function _setCursor(node, position) {
 
         if (node.createTextRange) {
             var tr = node.createTextRange();
+
             tr.collapse(true);
             tr.moveEnd(position);
             tr.moveStart(position);
@@ -26,8 +29,6 @@ function _setCursor(node, position) {
             node.setSelectionRange(position, position);
         }
     }
-
-    node.focus();
 }
 
 var setCursorMixin = {
